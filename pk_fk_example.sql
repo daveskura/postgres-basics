@@ -41,12 +41,13 @@ CREATE TABLE _keydemo.customer (
 
 DROP TABLE IF EXISTS _keydemo.sales;
 CREATE TABLE _keydemo.sales (
-	invoice_nbr	int,
+	invoice_nbr	int ,
+	line_nbr int ,
 	product_id int references _keydemo.products(product_id),
 	customer_id int references _keydemo.customer(customer_id),
-	saleamt numeric(8,3)
+	saleamt numeric(8,3),
+	primary key(invoice_nbr,line_nbr)
 );
-
 
 INSERT INTO _keydemo.products(product_id,product_name) VALUES(1001,'hat');
 INSERT INTO _keydemo.products(product_id,product_name) VALUES(1002,'gloves');
@@ -58,9 +59,9 @@ INSERT INTO _keydemo.customer(customer_id,customer_name) VALUES(702,'Curly');
 INSERT INTO _keydemo.customer(customer_id,customer_name) VALUES(703,'Moe');
 
 
-INSERT INTO _keydemo.sales(invoice_nbr,product_id,customer_id,saleamt) VALUES(20020212,1001,701,0.97);
-INSERT INTO _keydemo.sales(invoice_nbr,product_id,customer_id,saleamt) VALUES(20020212,1002,701,2.99);
-INSERT INTO _keydemo.sales(invoice_nbr,product_id,customer_id,saleamt) VALUES(20020212,1003,701,12.01);
+INSERT INTO _keydemo.sales(invoice_nbr,line_nbr,product_id,customer_id,saleamt) VALUES(20020212,1,1001,701,0.97);
+INSERT INTO _keydemo.sales(invoice_nbr,line_nbr,product_id,customer_id,saleamt) VALUES(20020212,2,1002,701,2.99);
+INSERT INTO _keydemo.sales(invoice_nbr,line_nbr,product_id,customer_id,saleamt) VALUES(20020212,3,1003,701,12.01);
 
 SELECT invoice_nbr,customer_name,product_name,saleamt
 FROM _keydemo.sales 
@@ -70,8 +71,8 @@ FROM _keydemo.sales
 
 INSERT INTO _keydemo.products(product_id,product_name) VALUES(1001,'fail');
 INSERT INTO _keydemo.customer(customer_id,customer_name) VALUES(701,'fail');
-INSERT INTO _keydemo.sales(invoice_nbr,product_id,customer_id,saleamt) VALUES(20020212,1,701,-1);
-INSERT INTO _keydemo.sales(invoice_nbr,product_id,customer_id,saleamt) VALUES(20020212,1001,1,-1);
+INSERT INTO _keydemo.sales(invoice_nbr,line_nbr,product_id,customer_id,saleamt) VALUES(20020212,1,1,	701,-1);
+INSERT INTO _keydemo.sales(invoice_nbr,line_nbr,product_id,customer_id,saleamt) VALUES(20020212,1,1001,	1,	-1);
 
 
 
